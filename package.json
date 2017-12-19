@@ -1,0 +1,18 @@
+{
+  "name": "mongodb-API",
+  "version": "1.0.0",
+  "description": "Connect to mongodb and perform CRUD-operations",
+  "main": "model.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "REST",
+    "api",
+    "CRUD"
+  ],
+  "author": "Marcus Gustafsson <marcusgu@icloud.com>",
+  "license": "ISC"
+}
