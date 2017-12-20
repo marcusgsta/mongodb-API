@@ -4,7 +4,7 @@
   "description": "Connect to mongodb and perform CRUD-operations",
   "main": "model.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "keywords": [
     "mongodb",
@@ -14,5 +14,16 @@
     "CRUD"
   ],
   "author": "Marcus Gustafsson <marcusgu@icloud.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongodb": "^3.0.0-rc0",
+    "babel-eslint": "^8.0.3",
+    "eslint": "^4.13.1"
+  },
+  "devDependencies": {
+    "jest": "^22.0.3",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
+  }
 }

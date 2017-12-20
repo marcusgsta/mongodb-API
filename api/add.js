@@ -1,7 +1,9 @@
+#!/usr/bin/env node
 "use strict";
 //mongodb
-const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
-
+const dsn = require('../dsn');
+// const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
+// import { dsn } from '../dsn';
 var express = require('express');
 var router = express.Router();
 
