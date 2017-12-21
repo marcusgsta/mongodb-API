@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 //mongodb
-const dsn = require(__dirname + '/../dsn');
+const dsn = require('./dsn.js');
 // const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
 // import { dsn } from '../dsn';
 var express = require('express');

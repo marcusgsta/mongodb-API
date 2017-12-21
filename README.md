@@ -1,3 +1,8 @@
+
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/build.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/build-status/master)
 # mongodb-API
 
 Connect to Mongodb and use a simple Express API with Create, Read, Update and Delete routes.
