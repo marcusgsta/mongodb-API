@@ -1,6 +1,6 @@
 {
   "name": "@marcusgsta/mongodb-api",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Connect to mongodb and perform CRUD-operations",
   "main": "model.js",
   "scripts": {
