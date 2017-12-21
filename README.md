@@ -43,6 +43,6 @@ Reset database and fill with default data
 npm run reset-database
 ```
 
-#Dependencies:
+# Dependencies:
 mongodb
 express.js
