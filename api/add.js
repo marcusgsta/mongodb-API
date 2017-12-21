@@ -7,18 +7,22 @@ var router = express.Router();
 /* POST mongodb page. */
 
 router.post("/", async (request, response) => {
-    const Model = require("../model");
-    let model = new Model();
+    const Api = require("../index");
+    let api = new Api();
 
     try {
         var name = request.body.name;
         var formula = request.body.formula;
         var description = request.body.description;
-        let res = await model.addToCollection("formulas", name, formula, description);
 
-        console.log("name", name);
-        console.log("formula", formula);
-        console.log("description", description);
+        let resObject = {
+            "name": name,
+            "formula": formula,
+            "description": description
+        };
+
+        let res = await api.addToCollection("formulas", resObject);
+
         response.json(res);
     } catch (err) {
         console.log(err);

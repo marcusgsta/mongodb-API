@@ -2,29 +2,74 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/badges/build.png?b=master)](https://scrutinizer-ci.com/g/marcusgsta/mongodb-API/build-status/master)
-# mongodb-API
+
+# @marcusgsta/mongodb-api
 
 Connect to Mongodb and use a simple Express API with Create, Read, Update and Delete routes.
 
+This module is not recommended for using as is - it was created for educational purpose.
 
-Create a project:
+
+Install:
+
 ```
-mkdir my_project
-cd my_project
-npm init
 npm install @marcusgsta/mongodb-api
 ```
 
+The api contains the following self-explanatory methods:
+```
+findInCollection(colName, criteria, projection, limit)
+addToCollection(colName, item)
+removeFromCollection(colName, id)
+updateItemFromCollection(colName, id, item)
+resetCollection(colName, doc)
+```
 
-Download module with:
+There are example routes in /api, using the Express router.
+
+Use api as following:
+
+Set your Mongodb dsn:
 ```
-git clone https://github.com/marcusgsta/mongodb-API.git
+let api = require('@marcusgsta/mongodb-api');
+
+api.init('process.env.DBWEBB_DSN || "mongodb://localhost:27017/math"')
 ```
 
-Test with
+In your Express route, create a collection:
+
 ```
-npm test
+let colName = "formulas";
 ```
+
+READ
+Example from /api using async await
+
+```
+router.get("/", async (request, response) => {
+
+    try {
+        let res = await api.findInCollection("formulas", {}, {}, 0);
+        response.json(res);
+    } catch (err) {
+        response.json(err);
+    }
+});
+```
+
+
+ADD
+Create an object with the fields and values that you need.
+```
+let resObject = {
+    "name": name,
+    "formula": formula,
+    "description": description
+};
+
+let res = await api.addToCollection("formulas", resObject);
+```
+
 
 You also need Mongodb.
 
@@ -46,16 +91,14 @@ Run mongodb
 docker -up mongodb
 ```
 
-Configure your mongodb adress in the file model.js
-```
-"mongodb://localhost:27017/math";
-```
-where 'math' is the name of your database.
-
-
 Reset database and fill with default data
 ```
 npm run reset-database
+```
+
+Test with
+```
+npm test
 ```
 
 # Dependencies:

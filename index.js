@@ -1,79 +1,158 @@
-#!/usr/bin/env node
 "use strict";
-var express = require("express");
-// var path = require("path");
 
-var bodyParser = require('body-parser');
-
-// routes
-// var index = require(__dirname + '/routes/index');
-
-
-//mongodb
-var read = require(__dirname + '/api/read');
-var add = require(__dirname + '/api/add');
-var remove = require(__dirname + '/api/remove');
-var update = require(__dirname + '/api/update');
-
-var app = express();
-
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-
-// Serve static files
-// var staticFiles = path.join(__dirname, "public");
-// var staticFiles = path.join(__dirname, "../../react-frontend/build");
-
-// app.use(express.static(staticFiles));
-
-// This is middleware called for all routes
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true})); // support encoded bodies
-
-app.use((req, res, next) => {
-    console.log(req.method);
-    console.log(req.path);
-    next();
-});
-
-
-// ROUTES
-// Catch all, send react app via index.html if no previous match
-// app.get("/", (req, res, next) => {
-//     // Path to index.html in client build directory
-//     res.sendFile(path.join(__dirname + '/../react-frontend/build/index.html'));
-// });
-
-// app.use('/', index);
-// app.use('/about', about);
-// app.use('/users', users);
-// app.use('/chat', chat);
-
-// api routes
-app.use('/api/read', read);
-app.use('/api/add/', add);
-app.use('/api/remove', remove);
-app.use('/api/update', update);
-
-// Catch 404 and forward to error handler
-app.use((req, res, next) => {
-    let err = new Error("Not Found");
-
-    err.status = 404;
-    next(err);
-});
-
-
-
-app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
+class Mongodb {
+    constructor(dsn) {
+        this.mongo = require("mongodb").MongoClient;
+        this.dsn = dsn || process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
     }
-    err.status = err.status || 500;
-    res.status(err.status);
-    res.render("error", {
-        error: err
-    });
-});
 
-module.exports = app;
+    /**
+     * Find documents in a collection by matching search criteria.
+     *
+     * @async
+     *
+     * #@param {string} dsn        DSN to connect to database.
+     * @param {string} colName    Name of collection.
+     * @param {object} criteria   Search criteria.
+     * @param {object} projection What to project in results.
+     * @param {number} limit      Limit the number of documents to retrieve.
+     *
+     * @throws Error when database operation fails.
+     *
+     * @return {Promise<array>} The resultset as an array.
+     */
+    async findInCollection(colName, criteria, projection, limit) {
+        const db  = await this.mongo.connect(this.dsn);
+        const col = await db.collection(colName);
+        const res = await col.find(criteria, projection).limit(limit).toArray();
+
+        await db.close();
+
+        return res;
+    }
+
+    /**
+     * Add documents to a collection
+     *
+     * @async
+     *
+     * #@param {string} dsn        DSN to connect to database.
+     * @param {string} colName    Name of collection.
+     *
+     * @throws Error when database operation fails.
+     *
+     * @return {Void}
+     */
+
+    async addToCollection(colName, item) {
+        const db  = await this.mongo.connect(this.dsn);
+        const col = await db.collection(colName);
+
+        // const res = await col.insert(
+        //     { "name": name,
+        //         "formula": formula,
+        //         "description": description}
+        // );
+        console.log(item);
+
+        const res = await col.insert(item);
+
+        await db.close();
+
+        return res;
+    }
+
+    // async addToCollection(colName, name, formula, description) {
+    //     const db  = await this.mongo.connect(this.dsn);
+    //     const col = await db.collection(colName);
+    //     const res = await col.insert(
+    //         { "name": name,
+    //             "formula": formula,
+    //             "description": description}
+    //     );
+    //
+    //     await db.close();
+    //
+    //     return res;
+    // }
+
+    /**
+     * Delete documents to a collection
+     *
+     * @async
+     *
+     * #@param {string} dsn        DSN to connect to database.
+     * @param {string} colName    Name of collection.
+     *
+     * @throws Error when database operation fails.
+     *
+     * @return {Void}
+     */
+    async removeFromCollection(colName, id) {
+        console.log("id", id);
+        const ObjectId = require('mongodb').ObjectId;
+        const db  = await this.mongo.connect(this.dsn);
+        const col = await db.collection(colName);
+        //const res = await col.remove({ _id: new ObjectId(id)});
+        const res = await col.deleteOne({ _id: new ObjectId(id)});
+
+        await db.close();
+
+        return res;
+    }
+
+    /**
+     * Delete documents to a collection
+     *
+     * @async
+     *
+     * #@param {string} dsn        DSN to connect to database.
+     * @param {string} colName    Name of collection.
+     *
+     * @throws Error when database operation fails.
+     *
+     * @return {Void}
+     */
+    async updateItemFromCollection(colName, id, item) {
+        const ObjectId = require('mongodb').ObjectId;
+        const db  = await this.mongo.connect(this.dsn);
+        const col = await db.collection(colName);
+
+        var myquery = { _id: new ObjectId(id) };
+        // var newvalues = { name: name, formula: formula, description: description };
+        var newvalues = item;
+        const res = await col.update(myquery, { $set: newvalues } );
+
+        await db.close();
+
+        return res;
+    }
+
+    /**
+     * Reset a collection by removing existing content and insert a default
+     * set of documents.
+     *
+     * @async
+     *
+     * #@param {string} dsn     DSN to connect to database.
+     * @param {string} colName Name of collection.
+     * @param {string} doc     Documents to be inserted into collection.
+     *
+     * @throws Error when database operation fails.
+     *
+     * @return {Promise<void>} Void
+     */
+    async resetCollection(colName, doc) {
+        const db  = await this.mongo.connect(this.dsn);
+        const col = await db.collection(colName);
+
+        await col.deleteMany();
+        await col.insertMany(doc);
+        console.log("Database was reset and setup.");
+        await db.close();
+    }
+}
+
+
+
+module.exports = Mongodb;

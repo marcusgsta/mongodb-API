@@ -6,12 +6,12 @@ var router = express.Router();
 /* POST mongodb page. */
 
 router.delete("/", async (request, response) => {
-    const Model = require("../model");
-    let model = new Model();
+    const Api = require("../index");
+    let api = new Api();
 
     try {
         var id = request.body.id;
-        let res = await model.removeFromCollection("formulas", id);
+        let res = await api.removeFromCollection("formulas", id);
 
         console.log("id", id);
         response.json(res);

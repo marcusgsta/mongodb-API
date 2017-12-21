@@ -1,16 +1,16 @@
 //mongodb
 
 var express = require('express');
-var router = express.Router();
-
+// var router = express.Router();
+var app = express();
 /* GET mongodb page. */
 
-router.get("/", async (request, response) => {
-    const Model = require("../model");
-    let model = new Model();
+app.get("/", async (request, response) => {
+    const Api = require("../index");
+    let api = new Api("mongodb://localhost:27017/math");
 
     try {
-        let res = await model.findInCollection("formulas", {}, {}, 0);
+        let res = await api.findInCollection("formulas", {}, {}, 0);
 
         console.log(res);
         response.json(res);
@@ -22,4 +22,4 @@ router.get("/", async (request, response) => {
 
 
 
-module.exports = router;
+// module.exports = router;
