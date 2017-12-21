@@ -1,6 +1,7 @@
 //mongodb
 // const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
-const dsn = require('../dsn');
+const dsn = require(__dirname + '/../dsn');
+//const dsn = require('../dsn');
 var express = require('express');
 var router = express.Router();
 
