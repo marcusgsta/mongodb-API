@@ -4,7 +4,8 @@
   "description": "Connect to mongodb and perform CRUD-operations",
   "main": "model.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "reset-database": "node setup.js"
   },
   "keywords": [
     "mongodb",
