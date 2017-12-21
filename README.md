@@ -7,6 +7,15 @@
 Connect to Mongodb and use a simple Express API with Create, Read, Update and Delete routes.
 
 
+Create a project:
+```
+mkdir my_project
+cd my_project
+npm init
+npm install @marcusgsta/mongodb-api
+```
+
+
 Download module with:
 ```
 git clone https://github.com/marcusgsta/mongodb-API.git
@@ -37,10 +46,12 @@ Run mongodb
 docker -up mongodb
 ```
 
-Configure your mongodb adress in the file dsn.js
+Configure your mongodb adress in the file model.js
 ```
 "mongodb://localhost:27017/math";
 ```
+where 'math' is the name of your database.
+
 
 Reset database and fill with default data
 ```
