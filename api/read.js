@@ -1,7 +1,5 @@
 //mongodb
-// const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
-const dsn = require('./dsn.js');
-//const dsn = require('../dsn');
+
 var express = require('express');
 var router = express.Router();
 
@@ -12,7 +10,7 @@ router.get("/", async (request, response) => {
     let model = new Model();
 
     try {
-        let res = await model.findInCollection(dsn, "formulas", {}, {}, 0);
+        let res = await model.findInCollection("formulas", {}, {}, 0);
 
         console.log(res);
         response.json(res);

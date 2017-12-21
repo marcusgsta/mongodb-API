@@ -1,8 +1,5 @@
 "use strict";
 //mongodb
-// const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
-const dsn = require('./dsn.js');
-
 var express = require('express');
 var router = express.Router();
 
@@ -14,7 +11,7 @@ router.delete("/", async (request, response) => {
 
     try {
         var id = request.body.id;
-        let res = await model.removeFromCollection(dsn, "formulas", id);
+        let res = await model.removeFromCollection("formulas", id);
 
         console.log("id", id);
         response.json(res);

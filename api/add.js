@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 "use strict";
 //mongodb
-const dsn = require('./dsn.js');
-// const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
-// import { dsn } from '../dsn';
 var express = require('express');
 var router = express.Router();
 
@@ -17,7 +14,7 @@ router.post("/", async (request, response) => {
         var name = request.body.name;
         var formula = request.body.formula;
         var description = request.body.description;
-        let res = await model.addToCollection(dsn, "formulas", name, formula, description);
+        let res = await model.addToCollection("formulas", name, formula, description);
 
         console.log("name", name);
         console.log("formula", formula);
