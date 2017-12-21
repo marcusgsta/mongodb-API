@@ -18,9 +18,10 @@
   "author": "Marcus Gustafsson <marcusgu@icloud.com>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2",
     "babel-eslint": "^8.0.3",
-    "eslint": "^4.13.1"
+    "eslint": "^4.13.1",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "devDependencies": {
     "jest": "^22.0.3",
