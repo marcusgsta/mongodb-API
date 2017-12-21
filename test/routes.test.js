@@ -4,6 +4,10 @@
 // const app = require('../api/read');
 // const { describe, expect, test } = require('mocha');
 
+let Api = require('../index');
+let api = new Api('address');
+
+console.log(api);
 
 
 // describe('Test the error path', () => {

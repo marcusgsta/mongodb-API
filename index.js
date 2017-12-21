@@ -1,6 +1,6 @@
 "use strict";
 
-class Mongodb {
+class Mongoapi {
     constructor(dsn) {
         this.mongo = require("mongodb").MongoClient;
         this.dsn = dsn || process.env.DBWEBB_DSN || "mongodb://localhost:27017/math";
@@ -43,7 +43,6 @@ class Mongodb {
      *
      * @return {Void}
      */
-
     async addToCollection(colName, item) {
         const db  = await this.mongo.connect(this.dsn);
         const col = await db.collection(colName);
@@ -155,4 +154,4 @@ class Mongodb {
 
 
 
-module.exports = Mongodb;
+module.exports = Mongoapi;

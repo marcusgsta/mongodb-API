@@ -5,7 +5,7 @@
 
 # @marcusgsta/mongodb-api
 
-Connect to Mongodb and use a simple Express API with Create, Read, Update and Delete routes.
+Connect to Mongodb and use a simple API with Create, Read, Update and Delete routes.
 
 This module is not recommended for using as is - it was created for educational purpose.
 
@@ -25,7 +25,7 @@ updateItemFromCollection(colName, id, item)
 resetCollection(colName, doc)
 ```
 
-There are example routes in /api, using the Express router.
+There are example routes in /api, using the Express router module.
 
 Use api as following:
 
