@@ -31,25 +31,25 @@ Use api as following:
 
 Set your Mongodb dsn:
 ```
-let api = require('@marcusgsta/mongodb-api');
+let Api = require('@marcusgsta/mongodb-api');
 
-api.init('process.env.DBWEBB_DSN || "mongodb://localhost:27017/math"')
+let api = new Api(process.env.DBWEBB_DSN || "mongodb://localhost:27017/math");
 ```
 
-In your Express route, create a collection:
+Create a collection:
 
 ```
 let colName = "formulas";
 ```
 
-READ
+## READ
 Example from /api using async await
 
 ```
 router.get("/", async (request, response) => {
 
     try {
-        let res = await api.findInCollection("formulas", {}, {}, 0);
+        let res = await api.findInCollection(colName, {}, {}, 0);
         response.json(res);
     } catch (err) {
         response.json(err);
@@ -58,7 +58,7 @@ router.get("/", async (request, response) => {
 ```
 
 
-ADD
+## ADD
 Create an object with the fields and values that you need.
 ```
 let resObject = {
@@ -70,13 +70,7 @@ let resObject = {
 let res = await api.addToCollection("formulas", resObject);
 ```
 
-
-You also need Mongodb.
-
-To install globally:
-```
-npm install mongodb --save
-```
+You of course need Mongodb. It is possible to use the Docker image:
 
 As an alternative you can install Docker according to your operative system:
 https://docs.docker.com/engine/installation/#server
@@ -100,7 +94,3 @@ Test with
 ```
 npm test
 ```
-
-# Dependencies:
-mongodb
-express.js
