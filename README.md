@@ -70,7 +70,7 @@ let resObject = {
 let res = await api.addToCollection("formulas", resObject);
 ```
 
-You of course need Mongodb. It is possible to use the Docker image:
+You of course need Mongodb.
 
 As an alternative you can install Docker according to your operative system:
 https://docs.docker.com/engine/installation/#server
