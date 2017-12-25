@@ -89,8 +89,3 @@ Reset database and fill with default data
 ```
 npm run reset-database
 ```
-
-Test with
-```
-npm test
-```
